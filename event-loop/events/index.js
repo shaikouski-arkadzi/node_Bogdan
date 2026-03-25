@@ -15,6 +15,8 @@ Promise.resolve().then(() => console.log("Promise 1"));
 
 process.nextTick(() => console.log("Next tick 1"));
 
+setImmediate(() => console.log("Immediate 1"));
+
 console.log("Program end");
 
 // Sync
@@ -27,6 +29,8 @@ console.log("Program end");
 //  ├── Next tick → Next tick 1
 //  ├── Microtasks → Promise 1
 //  ├── Timers → Timeout 1
+//  ├── Poll → (fs ещё пишет файл)
+//  ├── Check → Immediate 1
 //  ├── Poll → File wrutten
 
 // Iteration 2
