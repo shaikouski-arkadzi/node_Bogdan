@@ -13,6 +13,8 @@ fs.writeFile("event-loop/events/test.txt", "Hello Node.js", () =>
 
 Promise.resolve().then(() => console.log("Promise 1"));
 
+process.nextTick(() => console.log("Next tick 1"));
+
 console.log("Program end");
 
 // Sync
@@ -22,6 +24,7 @@ console.log("Program end");
 // Event Loop
 
 // Iteration 1
+//  ├── Next tick → Next tick 1
 //  ├── Microtasks → Promise 1
 //  ├── Timers → Timeout 1
 //  ├── Poll → File wrutten
