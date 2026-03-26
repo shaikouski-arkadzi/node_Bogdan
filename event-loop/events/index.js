@@ -24,6 +24,7 @@ setImmediate(() => console.log("Immediate 1"));
 dns.lookup("localhost", (error, address, family) => {
   console.log("DNS 1 localhost ", address);
   Promise.resolve().then(() => console.log("Promise 2"));
+  process.nextTick(() => console.log("Next tick 3"));
 });
 
 console.log("Program end");
@@ -60,4 +61,5 @@ console.log("Program end");
 //  ├── Timers → Timeout 2
 //  ├── Next tick → Next tick 2
 //  ├── Poll → DNS 1
+//  ├── Next tick → Next tick 3
 //  └── Microtasks → Promise 2
