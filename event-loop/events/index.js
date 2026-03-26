@@ -10,6 +10,12 @@ setTimeout(() => {
   console.log("Timeout 2");
 }, 10);
 
+let intervalCount = 0;
+const intervalId = setInterval(() => {
+  console.log(`Interval 1 ${(intervalCount += 1)}`);
+  if (intervalCount === 2) clearInterval(intervalId);
+}, 0);
+
 // Poll Phase
 fs.writeFile("event-loop/events/test.txt", "Hello Node.js", () =>
   console.log("File written"),
@@ -49,6 +55,7 @@ console.log("Program end");
 //  ├── Next tick → Next tick 1
 //  ├── Microtasks → Promise 1
 //  ├── Timers → Timeout 1
+//  ├── Interval → Interval 1 1
 //  ├── Poll
 //  │     ├── проверка Thread pool
 //  │     ├── fs.writeFile
@@ -60,6 +67,7 @@ console.log("Program end");
 // Iteration 2
 //  ├── Timers → Timeout 2
 //  ├── Next tick → Next tick 2
+//  ├── Interval → Interval 1 2
 //  ├── Poll → DNS 1
 //  ├── Next tick → Next tick 3
 //  └── Microtasks → Promise 2
