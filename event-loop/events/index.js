@@ -4,7 +4,10 @@ console.log("Program start");
 
 // Timeouts
 setTimeout(() => console.log("Timeout 1"), 0);
-setTimeout(() => console.log("Timeout 2"), 10);
+setTimeout(() => {
+  process.nextTick(() => console.log("Next tick 2"));
+  console.log("Timeout 2");
+}, 10);
 
 // Poll Phase
 fs.writeFile("event-loop/events/test.txt", "Hello Node.js", () =>
@@ -34,4 +37,5 @@ console.log("Program end");
 //  ├── Poll → File wrutten
 
 // Iteration 2
-//  └── Timers → Timeout 2
+//  ├── Timers → Timeout 2
+//  └── Next tick → Next tick 2
