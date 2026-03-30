@@ -6,6 +6,8 @@ class Post extends EventEmitter {
     this.name = name;
     this.text = text;
     this.likes = 0;
+
+    this.on("likePost", () => console.log("Like!"));
   }
 
   like() {
@@ -15,8 +17,6 @@ class Post extends EventEmitter {
 }
 
 const myPost = new Post("title 1", "text 1");
-
-myPost.on("likePost", () => console.log("Like!"));
 
 console.log(myPost.likes);
 myPost.like();
