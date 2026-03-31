@@ -20,6 +20,10 @@ const server = http.createServer((req, res) => {
     res.end(JSON.stringify(obj));
     return;
   }
+  res.statusCode = 404;
+  res.setHeader("Content-Type", "text/html");
+  res.end("Not found");
+  return;
 });
 
 server.listen(3002, () => console.log("Server was launced"));
