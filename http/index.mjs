@@ -15,10 +15,22 @@ const server = http.createServer((req, res) => {
     return;
   }
   if (req.url === "/json") {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "application/json");
-    res.end(JSON.stringify(obj));
-    return;
+    if (req.method === "GET") {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      res.end(JSON.stringify(obj));
+      return;
+    }
+    if (req.method === "POST") {
+      let comment = "";
+
+      req.on("data", (chunk) => (comment += chunk));
+      req.on("end", () => {
+        obj.push(JSON.parse(comment));
+        res.statusCode = 200;
+        res.end("Comment data was received");
+      });
+    }
   }
   res.statusCode = 404;
   res.setHeader("Content-Type", "text/html");
