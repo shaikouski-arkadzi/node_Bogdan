@@ -1,7 +1,7 @@
-import http from "http";
+import express from "express";
 
-const server = http.createServer((req, res) => {
-  res.end("Response from server");
-});
+const app = express();
 
-server.listen(3005, () => console.log("Server was started on port 3005"));
+app.get("/", (req, res) => res.send("Response from Express"));
+
+app.listen(3005, () => console.log("Server was started on port 3005"));
