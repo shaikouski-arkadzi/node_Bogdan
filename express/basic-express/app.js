@@ -1,4 +1,5 @@
 import express from "express";
+import usersRouter from "./routes/users.js";
 
 const app = express();
 
@@ -22,5 +23,7 @@ app.route("/comments").get(getCommentsHandler).post(postCommentsHandler);
 // app.post("/comments", postCommentsHandler);
 
 app.get("/comments/:commentId", getCommentHandler);
+
+app.use("/users", usersRouter);
 
 app.listen(3005, () => console.log("Server was started on port 3005"));
